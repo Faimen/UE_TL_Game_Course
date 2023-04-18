@@ -23,6 +23,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Attack")
 	UAnimMontage* AttackAnim;
 
+	UPROPERTY(EditAnywhere, Category="Abilities")
+	TSubclassOf<AActor> PrimaryAbilityClass;
+
+	UPROPERTY(EditAnywhere, Category="Abilities")
+	TSubclassOf<AActor> SecondaryAbilityClass;
+
 	FTimerHandle TimerHandle_PrimaryAttack;
 
 public:
@@ -45,10 +51,22 @@ protected:
 
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+	
+	void PrimaryInteract();
 
 	void PrimaryAttack();
-	void PrimaryInteract();
 	void PrimaryAttack_Timelapsed();
+	
+	void PrimaryAbility();
+	void PrimaryAbility_Timelapsed();
+
+	void SecondaryAbility();
+	void SecondaryAbility_Timelapsed();
+
+	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
+
+	FVector GetViewPosition();
+	FVector GetPawnViewLocation() const override;
 
 public:	
 	// Called every frame

@@ -8,6 +8,7 @@
 #include "DrawDebugHelpers.h"
 #include "SInteractionComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -64,14 +65,75 @@ void ASCharacter::PrimaryAttack()
 
 void ASCharacter::PrimaryAttack_Timelapsed()
 {
-	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
-	FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
+	SpawnProjectile(ProjectileClass);
+}
 
-	FActorSpawnParameters SpawnParameters;
-	SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	SpawnParameters.Instigator = this;
+void ASCharacter::PrimaryAbility()
+{
+	PlayAnimMontage(AttackAnim);
 
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParameters);
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASCharacter::PrimaryAbility_Timelapsed, 0.2f);
+}
+
+void ASCharacter::PrimaryAbility_Timelapsed()
+{
+	SpawnProjectile(PrimaryAbilityClass);
+}
+
+void ASCharacter::SecondaryAbility()
+{
+	PlayAnimMontage(AttackAnim);
+
+	FTimerHandle TimerHandle;
+	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASCharacter::SecondaryAbility_Timelapsed, 0.2f);
+}
+
+void ASCharacter::SecondaryAbility_Timelapsed()
+{
+	SpawnProjectile(SecondaryAbilityClass);
+}
+
+void ASCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
+{
+	if (ensureAlways(ClassToSpawn))
+	{
+		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+		FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(HandLocation, GetViewPosition());
+		FTransform SpawnTM = FTransform(SpawnRotation, HandLocation);
+
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		SpawnParameters.Instigator = this;
+
+		GetWorld()->SpawnActor<AActor>(ClassToSpawn, SpawnTM, SpawnParameters);
+	}
+}
+
+FVector ASCharacter::GetViewPosition()
+{
+	FCollisionObjectQueryParams ObjectQueryParams;
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
+
+	FVector EyeLocation;
+	FRotator EyeRotation;
+	this->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+
+	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
+	FHitResult HitResult;
+	bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(HitResult, EyeLocation, End, ObjectQueryParams);
+
+	return bBlockingHit ? HitResult.ImpactPoint : End;
+}
+
+FVector ASCharacter::GetPawnViewLocation() const
+{
+	if (CameraComponent)
+	{
+		return this->CameraComponent->GetComponentLocation();
+	}
+	return Super::GetPawnViewLocation();
 }
 
 void ASCharacter::PrimaryInteract()
@@ -117,7 +179,11 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
-	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASCharacter::Jump);
+
+	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
+
+	PlayerInputComponent->BindAction("PrimaryAbility", IE_Pressed, this, &ASCharacter::PrimaryAbility);
+	PlayerInputComponent->BindAction("SecondaryAbility", IE_Pressed, this, &ASCharacter::SecondaryAbility);
 }
