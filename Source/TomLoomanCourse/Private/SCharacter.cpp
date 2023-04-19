@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "DrawDebugHelpers.h"
+#include "SAttributeComponent.h"
 #include "SInteractionComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -24,6 +25,8 @@ ASCharacter::ASCharacter()
 	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	InteractionComponent = CreateDefaultSubobject<USInteractionComponent>("InteractionComponent");
+
+	AttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributesComponent");
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 

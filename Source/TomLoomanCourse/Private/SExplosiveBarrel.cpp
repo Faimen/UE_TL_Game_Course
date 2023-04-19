@@ -3,6 +3,7 @@
 
 #include "SExplosiveBarrel.h"
 
+#include "SAttributeComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
 
@@ -50,7 +51,14 @@ void ASExplosiveBarrel::Tick(float DeltaTime)
 void ASExplosiveBarrel::OnHitCallback(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	RadialForce->FireImpulse();
-	
+
+	USAttributeComponent* AttributeComponent = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
+
+	if(IsValid(AttributeComponent))
+	{ 
+		AttributeComponent->ApplyHealthChange(-50.0f);
+	}
+
 	// Logging to make sure we reached the event
 	UE_LOG(LogTemp, Log, TEXT("OnActorHit reached (ExplosiveBarrel)"));
 }

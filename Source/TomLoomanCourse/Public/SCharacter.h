@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
+class USAttributeComponent;
 
 UCLASS()
 class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
@@ -28,7 +29,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category="Abilities")
 	TSubclassOf<AActor> SecondaryAbilityClass;
-
+	
 	FTimerHandle TimerHandle_PrimaryAttack;
 
 public:
@@ -45,6 +46,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	USInteractionComponent* InteractionComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	USAttributeComponent* AttributeComponent;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
