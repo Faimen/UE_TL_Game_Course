@@ -9,9 +9,8 @@
 class USphereComponent;
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
-class UParticleSystem;
 
-UCLASS()
+UCLASS(Abstract)
 class TOMLOOMANCOURSE_API ASProjectileBase : public AActor
 {
 	GENERATED_BODY()
@@ -21,16 +20,16 @@ public:
 	ASProjectileBase();
 
 protected:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	USphereComponent* SphereComponent;
 		
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	UProjectileMovementComponent* MovementComponent;
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	UParticleSystemComponent* EffectComponent;
 		
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="Effects")
 	UParticleSystem* HitVFX;
 
 	UFUNCTION()
