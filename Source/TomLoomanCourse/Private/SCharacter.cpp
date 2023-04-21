@@ -5,7 +5,6 @@
 
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "DrawDebugHelpers.h"
 #include "SAttributeComponent.h"
 #include "SInteractionComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -123,15 +122,13 @@ FVector ASCharacter::GetViewPosition()
 	FVector EyeLocation;
 	FRotator EyeRotation;
 	this->GetActorEyesViewPoint(EyeLocation, EyeRotation);
-
+	
+	FVector Start = EyeLocation + SpringArmComponent->TargetArmLength / 2.0f;
 	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
-
-	FCollisionShape Shape;
-	Shape.SetSphere(20.0f);
-
+	
 	FHitResult HitResult;
-	bool bBlockingHit = GetWorld()->SweepSingleByObjectType(HitResult, EyeLocation, End, FQuat::Identity, ObjectQueryParams, Shape);
-
+	bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(HitResult, Start, End, ObjectQueryParams);
+	
 	return bBlockingHit ? HitResult.ImpactPoint : End;
 }
 
