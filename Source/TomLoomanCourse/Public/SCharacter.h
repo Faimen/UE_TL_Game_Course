@@ -53,6 +53,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void PostInitializeComponents() override;
+
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	
@@ -71,7 +73,9 @@ protected:
 
 	FVector GetViewPosition();
 	FVector GetPawnViewLocation() const override;
-
+	
+	UFUNCTION()
+	void OnHealthChanged( AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
 public:	
 
 	// Called to bind functionality to input
