@@ -16,6 +16,7 @@ ASItemChest::ASItemChest()
 	LidMesh->SetupAttachment(RootComponent);
 
 	TargetPitch = 110;
+	
 }
 
 void ASItemChest::Interact_Implementation(APawn* InstigatorPawn)

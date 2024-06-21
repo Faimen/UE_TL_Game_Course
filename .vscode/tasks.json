@@ -1,0 +1,1177 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "TomLoomanCourse Win64 Debug Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Debug Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Win64 Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Debug Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 DebugGame Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Win64 DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 DebugGame Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Development Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Development Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Win64 Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Development Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Test Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Test",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Test Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Test",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Win64 Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Test Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Test",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Shipping Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Shipping",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Shipping Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Shipping",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Win64 Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Win64 Shipping Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Win64",
+				"Shipping",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Debug Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Debug Cook+Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Debug",
+				"-ServerConfig=Debug",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Debug Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Debug Cook",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Debug",
+				"-ServerConfig=Debug",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Debug Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Debug Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Debug",
+				"-ServerConfig=Debug",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-DeploySoToDevice",
+				"-SkipCook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourse Android Debug Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Debug Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Android Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Debug Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android DebugGame Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android DebugGame Cook+Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=DebugGame",
+				"-ServerConfig=DebugGame",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android DebugGame Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android DebugGame Cook",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=DebugGame",
+				"-ServerConfig=DebugGame",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android DebugGame Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android DebugGame Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=DebugGame",
+				"-ServerConfig=DebugGame",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-DeploySoToDevice",
+				"-SkipCook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourse Android DebugGame Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Android DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android DebugGame Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Development Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Development Cook+Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Development",
+				"-ServerConfig=Development",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Development Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Development Cook",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Development",
+				"-ServerConfig=Development",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Development Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Development Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Development",
+				"-ServerConfig=Development",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-DeploySoToDevice",
+				"-SkipCook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourse Android Development Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Development Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Android Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Development Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Test Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Test",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Test Cook+Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Test",
+				"-ServerConfig=Test",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Test Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Test Cook",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Test",
+				"-ServerConfig=Test",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Test Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Test Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Test",
+				"-ServerConfig=Test",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-DeploySoToDevice",
+				"-SkipCook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourse Android Test Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Test Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Test",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Android Test Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Test Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Test",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Shipping Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Shipping",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Shipping Cook+Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Shipping",
+				"-ServerConfig=Shipping",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Shipping Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Shipping Cook",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Shipping",
+				"-ServerConfig=Shipping",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-Cook"
+			],
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Build",
+				"TomLoomanCourse Android Shipping Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Shipping Deploy",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\RunUAT.bat",
+			"args": [
+				"BuildCookRun",
+				"-ScriptsForProject=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-Project=E:/Develop/TomLoomanCourse/TomLoomanCourse.uproject",
+				"-noP4",
+				"-ClientConfig=Shipping",
+				"-ServerConfig=Shipping",
+				"-NoCompileEditor",
+				"-utf8output",
+				"-Platform=Android",
+				"-TargetPlatform=Android",
+				"-ini:Game:[/Script/UnrealEd.ProjectPackagingSettings]:BlueprintNativizationMethod=Disabled",
+				"-Compressed",
+				"-IterativeCooking",
+				"-IterativeDeploy",
+				"-DeploySoToDevice",
+				"-SkipCook",
+				"-Stage",
+				"-Deploy"
+			],
+			"dependsOn": [
+				"TomLoomanCourse Android Shipping Build"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Shipping Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Shipping",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourse Android Shipping Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourse Android Shipping Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourse",
+				"Android",
+				"Shipping",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 Debug Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 Debug Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Debug Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 Debug Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"Debug",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 DebugGame Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 DebugGame Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 DebugGame Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 DebugGame Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"DebugGame",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 Development Build",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 Development Rebuild",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Build.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"dependsOn": [
+				"TomLoomanCourseEditor Win64 Development Clean"
+			],
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		},
+		{
+			"label": "TomLoomanCourseEditor Win64 Development Clean",
+			"group": "build",
+			"command": "Engine\\Build\\BatchFiles\\Clean.bat",
+			"args": [
+				"TomLoomanCourseEditor",
+				"Win64",
+				"Development",
+				"E:\\Develop\\TomLoomanCourse\\TomLoomanCourse.uproject",
+				"-waitmutex"
+			],
+			"problemMatcher": "$msCompile",
+			"type": "shell",
+			"options": {
+				"cwd": "D:\\Develop\\Programms\\UE_5.1.1\\UE_5.1"
+			}
+		}
+	]
+}
