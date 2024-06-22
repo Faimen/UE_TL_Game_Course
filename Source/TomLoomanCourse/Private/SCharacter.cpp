@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "SCharacter.h"
 
 #include "Camera/CameraComponent.h"
@@ -9,6 +8,7 @@
 #include "SInteractionComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ASCharacter::ASCharacter()
@@ -30,6 +30,8 @@ ASCharacter::ASCharacter()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	bUseControllerRotationYaw = false;
+	TimeToHitParamName = "TimeToHit";
+	HandSocketName = "Muzzle_01";
 }
 
 // Called when the game starts or when spawned
@@ -67,8 +69,7 @@ void ASCharacter::MoveRight(float Value)
 
 void ASCharacter::PrimaryAttack()
 {
-	PlayAnimMontage(AttackAnim);
-
+	StartAttackEffects();
 	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_Timelapsed, 0.2f);
 }
 
@@ -79,7 +80,7 @@ void ASCharacter::PrimaryAttack_Timelapsed()
 
 void ASCharacter::PrimaryAbility()
 {
-	PlayAnimMontage(AttackAnim);
+	StartAttackEffects();
 
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASCharacter::PrimaryAbility_Timelapsed, 0.2f);
@@ -92,7 +93,7 @@ void ASCharacter::PrimaryAbility_Timelapsed()
 
 void ASCharacter::SecondaryAbility()
 {
-	PlayAnimMontage(AttackAnim);
+	StartAttackEffects();
 
 	FTimerHandle TimerHandle;
 	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASCharacter::SecondaryAbility_Timelapsed, 0.2f);
@@ -103,11 +104,18 @@ void ASCharacter::SecondaryAbility_Timelapsed()
 	SpawnProjectile(SecondaryAbilityClass);
 }
 
+void ASCharacter::StartAttackEffects()
+{
+	PlayAnimMontage(AttackAnim);
+
+	UGameplayStatics::SpawnEmitterAttached(CastingEffect, GetMesh(), HandSocketName, FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::SnapToTarget);
+}
+
 void ASCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
 {
 	if (ensureAlways(ClassToSpawn))
 	{
-		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+		FVector HandLocation = GetMesh()->GetSocketLocation(HandSocketName);
 		FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(HandLocation, GetViewPosition());
 		FTransform SpawnTM = FTransform(SpawnRotation, HandLocation);
 
@@ -129,13 +137,13 @@ FVector ASCharacter::GetViewPosition()
 	FVector EyeLocation;
 	FRotator EyeRotation;
 	this->GetActorEyesViewPoint(EyeLocation, EyeRotation);
-	
+
 	FVector Start = EyeLocation + SpringArmComponent->TargetArmLength / 2.0f;
 	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
-	
+
 	FHitResult HitResult;
 	bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(HitResult, Start, End, ObjectQueryParams);
-	
+
 	return bBlockingHit ? HitResult.ImpactPoint : End;
 }
 
@@ -148,12 +156,17 @@ FVector ASCharacter::GetPawnViewLocation() const
 	return Super::GetPawnViewLocation();
 }
 
-void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth,
-	float Delta)
+void ASCharacter::OnHealthChanged(AActor *InstigatorActor, USAttributeComponent *OwningComponent, float NewHealth,
+								  float Delta)
 {
-	if(NewHealth <= 0.0f && Delta < 0.0f)
+	if(Delta < 0.0f)
 	{
-		APlayerController* PC = Cast<APlayerController>(GetController());
+		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHitParamName, GetWorld()->TimeSeconds);
+	}
+	
+	if (NewHealth <= 0.0f && Delta < 0.0f)
+	{
+		APlayerController *PC = Cast<APlayerController>(GetController());
 		DisableInput(PC);
 	}
 }
@@ -167,7 +180,7 @@ void ASCharacter::PrimaryInteract()
 }
 
 // Called to bind functionality to input
-void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ASCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 

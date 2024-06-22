@@ -12,7 +12,9 @@
 	"settings": {
 		"typescript.tsc.autoDetect": "off",
 		"cSpell.words": [
+			"ASAI",
 			"Msgf",
+			"Powerup",
 			"Timelapsed",
 			"TOMLOOMANCOURSE"
 		]

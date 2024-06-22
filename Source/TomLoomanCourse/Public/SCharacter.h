@@ -10,6 +10,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
 class USAttributeComponent;
+class UParticleSystem;
 
 UCLASS()
 class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
@@ -18,11 +19,20 @@ class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
 
 protected:
 
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+	FName TimeToHitParamName;
+
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+	FName HandSocketName;
+
 	UPROPERTY(EditAnywhere, Category="Attack")
 	TSubclassOf<AActor> ProjectileClass;
 
 	UPROPERTY(EditAnywhere, Category="Attack")
 	UAnimMontage* AttackAnim;
+
+	UPROPERTY(EditAnywhere, Category = "Attack")
+	UParticleSystem* CastingEffect;
 
 	UPROPERTY(EditAnywhere, Category="Abilities")
 	TSubclassOf<AActor> PrimaryAbilityClass;
@@ -68,6 +78,8 @@ protected:
 
 	void SecondaryAbility();
 	void SecondaryAbility_Timelapsed();
+
+	void StartAttackEffects();
 
 	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
 
