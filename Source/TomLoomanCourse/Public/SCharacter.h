@@ -18,7 +18,6 @@ class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
 	GENERATED_BODY()
 
 protected:
-
 	UPROPERTY(VisibleAnywhere, Category = "Effects")
 	FName TimeToHitParamName;
 
@@ -39,15 +38,13 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category="Abilities")
 	TSubclassOf<AActor> SecondaryAbilityClass;
-	
+
 	FTimerHandle TimerHandle_PrimaryAttack;
 
 public:
-	// Sets default values for this character's properties
 	ASCharacter();
 
 protected:
-
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComponent;
 
@@ -60,19 +57,18 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	USAttributeComponent* AttributeComponent;
 
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
 
 	void MoveForward(float Value);
 	void MoveRight(float Value);
-	
+
 	void PrimaryInteract();
 
 	void PrimaryAttack();
 	void PrimaryAttack_Timelapsed();
-	
+
 	void PrimaryAbility();
 	void PrimaryAbility_Timelapsed();
 
@@ -85,12 +81,13 @@ protected:
 
 	FVector GetViewPosition();
 	FVector GetPawnViewLocation() const override;
-	
-	UFUNCTION()
-	void OnHealthChanged( AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
-public:	
 
-	// Called to bind functionality to input
+	UFUNCTION()
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
+
+public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(Exec)
+	void HealSelf(float Amount = 100.0f);
 };

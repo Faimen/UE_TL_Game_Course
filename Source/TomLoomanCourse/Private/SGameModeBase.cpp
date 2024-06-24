@@ -20,6 +20,20 @@ void ASGameModeBase::StartPlay()
 	                                SpawnTimerInterval, true);
 }
 
+void ASGameModeBase::KillAll()
+{
+	for (TActorIterator<ASAICharacter> AIChar(GetWorld()); AIChar; ++AIChar)
+	{
+		ASAICharacter* Bot = *AIChar;
+
+		USAttributeComponent* AttributeComp = USAttributeComponent::GetAttributeComponentFromActor(Bot);
+		if (ensure(AttributeComp) && AttributeComp->IsAlive())
+		{
+			AttributeComp->Kill(this); //@todo: need to pass in instigator player
+		}
+	}
+}
+
 void ASGameModeBase::SpawnBotTimerElapsed()
 {
 	int32 SpawnedBots = 0;
