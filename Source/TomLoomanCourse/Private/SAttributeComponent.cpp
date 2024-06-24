@@ -39,6 +39,11 @@ float USAttributeComponent::GetHealthMax() const
 	return HealthMax;
 }
 
+float USAttributeComponent::GetHealth() const
+{
+	return Health;
+}
+
 bool USAttributeComponent::Kill(AActor* InstigatorActor)
 {
 	return ApplyHealthChange(InstigatorActor, -HealthMax);	
