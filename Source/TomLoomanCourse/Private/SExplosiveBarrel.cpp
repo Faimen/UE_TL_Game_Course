@@ -56,7 +56,7 @@ void ASExplosiveBarrel::OnHitCallback(UPrimitiveComponent* HitComponent, AActor*
 
 	if(IsValid(AttributeComponent))
 	{ 
-		AttributeComponent->ApplyHealthChange(-50.0f);
+		AttributeComponent->ApplyHealthChange(this, -50.0f);
 	}
 
 	// Logging to make sure we reached the event

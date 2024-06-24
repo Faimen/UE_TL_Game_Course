@@ -17,7 +17,13 @@ class TOMLOOMANCOURSE_API USBTTask_RangedAttack : public UBTTaskNode
 protected:
 
 	UPROPERTY(EditAnywhere, Category="AI")
+	float MaxBulletSpread;
+	
+	UPROPERTY(EditAnywhere, Category="AI")
 	TSubclassOf<AActor> ProjectileClass;
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+public:
+	USBTTask_RangedAttack();
 };

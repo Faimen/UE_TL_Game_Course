@@ -10,12 +10,12 @@ ASPowerupActor::ASPowerupActor()
 	SphereComponent->SetCollisionProfileName("Powerup");
 	RootComponent = SphereComponent;
 
-	RespawnTime = 10.0f;
+	RespawnTime = 10.0f;	
 }
 
 void ASPowerupActor::ShowPowerup()
 {
-	SetPowerupState(true);
+	SetPowerupState(true);	
 }
 
 void ASPowerupActor::HideAndCooldownPowerup()

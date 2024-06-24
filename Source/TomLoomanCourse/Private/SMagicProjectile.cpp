@@ -8,18 +8,21 @@
 
 ASMagicProjectile::ASMagicProjectile()
 {
+	SphereComponent->SetSphereRadius(20.f);
 	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ASMagicProjectile::OnActorOverlap);
+
+	DamageAmount = 20.0f;
 }
 
 void ASMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if(OtherActor && OtherActor != GetInstigator())
-	{
+	{		
 		USAttributeComponent* AttributeComponent = Cast<USAttributeComponent>(OtherActor->GetComponentByClass(USAttributeComponent::StaticClass()));
 
 		if(AttributeComponent)
 		{
-			AttributeComponent->ApplyHealthChange(-20.0f);
+			AttributeComponent->ApplyHealthChange(GetInstigator(), -DamageAmount);
 
 			Explode();
 		}
