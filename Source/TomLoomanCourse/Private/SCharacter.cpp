@@ -108,7 +108,8 @@ void ASCharacter::StartAttackEffects()
 {
 	PlayAnimMontage(AttackAnim);
 
-	UGameplayStatics::SpawnEmitterAttached(CastingEffect, GetMesh(), HandSocketName, FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::SnapToTarget);
+	UGameplayStatics::SpawnEmitterAttached(CastingEffect, GetMesh(), HandSocketName, FVector::ZeroVector,
+	                                       FRotator::ZeroRotator, EAttachLocation::SnapToTarget);
 }
 
 void ASCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
@@ -151,22 +152,22 @@ FVector ASCharacter::GetPawnViewLocation() const
 {
 	if (CameraComponent)
 	{
-		return this->CameraComponent->GetComponentLocation();
+		return CameraComponent->GetComponentLocation();
 	}
 	return Super::GetPawnViewLocation();
 }
 
-void ASCharacter::OnHealthChanged(AActor *InstigatorActor, USAttributeComponent *OwningComponent, float NewHealth,
-								  float Delta)
+void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth,
+                                  float Delta)
 {
-	if(Delta < 0.0f)
+	if (Delta < 0.0f)
 	{
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHitParamName, GetWorld()->TimeSeconds);
 	}
-	
+
 	if (NewHealth <= 0.0f && Delta < 0.0f)
 	{
-		APlayerController *PC = Cast<APlayerController>(GetController());
+		APlayerController* PC = Cast<APlayerController>(GetController());
 		DisableInput(PC);
 	}
 }
@@ -180,7 +181,7 @@ void ASCharacter::PrimaryInteract()
 }
 
 // Called to bind functionality to input
-void ASCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
+void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
