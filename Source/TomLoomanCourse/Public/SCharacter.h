@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "SCharacter.generated.h"
 
+class USActionComponent;
 class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
@@ -20,27 +21,7 @@ class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Effects")
 	FName TimeToHitParamName;
-
-	UPROPERTY(VisibleAnywhere, Category = "Effects")
-	FName HandSocketName;
-
-	UPROPERTY(EditAnywhere, Category="Attack")
-	TSubclassOf<AActor> ProjectileClass;
-
-	UPROPERTY(EditAnywhere, Category="Attack")
-	UAnimMontage* AttackAnim;
-
-	UPROPERTY(EditAnywhere, Category = "Attack")
-	UParticleSystem* CastingEffect;
-
-	UPROPERTY(EditAnywhere, Category="Abilities")
-	TSubclassOf<AActor> PrimaryAbilityClass;
-
-	UPROPERTY(EditAnywhere, Category="Abilities")
-	TSubclassOf<AActor> SecondaryAbilityClass;
-
-	FTimerHandle TimerHandle_PrimaryAttack;
-
+	
 public:
 	ASCharacter();
 
@@ -57,6 +38,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	USAttributeComponent* AttributeComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	USActionComponent* ActionComponent;
+
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
@@ -64,22 +48,17 @@ protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 
+	void SprintStart();
+	void SprintStop();
+	
 	void PrimaryInteract();
 
 	void PrimaryAttack();
-	void PrimaryAttack_Timelapsed();
 
-	void PrimaryAbility();
-	void PrimaryAbility_Timelapsed();
+	void BlackHoleAbility();
 
-	void SecondaryAbility();
-	void SecondaryAbility_Timelapsed();
+	void DashAbility();
 
-	void StartAttackEffects();
-
-	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
-
-	FVector GetViewPosition();
 	FVector GetPawnViewLocation() const override;
 
 	UFUNCTION()

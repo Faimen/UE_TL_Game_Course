@@ -2,6 +2,7 @@
 
 #include "SCharacter.h"
 
+#include "SActionComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "SAttributeComponent.h"
@@ -27,11 +28,12 @@ ASCharacter::ASCharacter()
 
 	AttributeComponent = CreateDefaultSubobject<USAttributeComponent>("AttributesComponent");
 
+	ActionComponent = CreateDefaultSubobject<USActionComponent>("ActionComponent");
+
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	bUseControllerRotationYaw = false;
 	TimeToHitParamName = "TimeToHit";
-	HandSocketName = "Muzzle_01";
 }
 
 // Called when the game starts or when spawned
@@ -67,86 +69,31 @@ void ASCharacter::MoveRight(float Value)
 	AddMovementInput(RightVector, Value);
 }
 
+void ASCharacter::SprintStart()
+{
+	ActionComponent->StartActionByName(this, "Sprint");
+}
+
+void ASCharacter::SprintStop()
+{
+	ActionComponent->StopActionByName(this, "Sprint");
+}
+
 void ASCharacter::PrimaryAttack()
 {
-	StartAttackEffects();
-	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASCharacter::PrimaryAttack_Timelapsed, 0.2f);
+	ActionComponent->StartActionByName(this, "PrimaryAttack");
 }
 
-void ASCharacter::PrimaryAttack_Timelapsed()
+void ASCharacter::BlackHoleAbility()
 {
-	SpawnProjectile(ProjectileClass);
+	ActionComponent->StartActionByName(this, "BlackHole");
 }
 
-void ASCharacter::PrimaryAbility()
+void ASCharacter::DashAbility()
 {
-	StartAttackEffects();
-
-	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASCharacter::PrimaryAbility_Timelapsed, 0.2f);
+	ActionComponent->StartActionByName(this, "Dash");
 }
 
-void ASCharacter::PrimaryAbility_Timelapsed()
-{
-	SpawnProjectile(PrimaryAbilityClass);
-}
-
-void ASCharacter::SecondaryAbility()
-{
-	StartAttackEffects();
-
-	FTimerHandle TimerHandle;
-	GetWorldTimerManager().SetTimer(TimerHandle, this, &ASCharacter::SecondaryAbility_Timelapsed, 0.2f);
-}
-
-void ASCharacter::SecondaryAbility_Timelapsed()
-{
-	SpawnProjectile(SecondaryAbilityClass);
-}
-
-void ASCharacter::StartAttackEffects()
-{
-	PlayAnimMontage(AttackAnim);
-
-	UGameplayStatics::SpawnEmitterAttached(CastingEffect, GetMesh(), HandSocketName, FVector::ZeroVector,
-	                                       FRotator::ZeroRotator, EAttachLocation::SnapToTarget);
-}
-
-void ASCharacter::SpawnProjectile(TSubclassOf<AActor> ClassToSpawn)
-{
-	if (ensureAlways(ClassToSpawn))
-	{
-		FVector HandLocation = GetMesh()->GetSocketLocation(HandSocketName);
-		FRotator SpawnRotation = UKismetMathLibrary::FindLookAtRotation(HandLocation, GetViewPosition());
-		FTransform SpawnTM = FTransform(SpawnRotation, HandLocation);
-
-		FActorSpawnParameters SpawnParameters;
-		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		SpawnParameters.Instigator = this;
-
-		GetWorld()->SpawnActor<AActor>(ClassToSpawn, SpawnTM, SpawnParameters);
-	}
-}
-
-FVector ASCharacter::GetViewPosition()
-{
-	FCollisionObjectQueryParams ObjectQueryParams;
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
-	ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
-
-	FVector EyeLocation;
-	FRotator EyeRotation;
-	this->GetActorEyesViewPoint(EyeLocation, EyeRotation);
-
-	FVector Start = EyeLocation + SpringArmComponent->TargetArmLength / 2.0f;
-	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
-
-	FHitResult HitResult;
-	bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(HitResult, Start, End, ObjectQueryParams);
-
-	return bBlockingHit ? HitResult.ImpactPoint : End;
-}
 
 FVector ASCharacter::GetPawnViewLocation() const
 {
@@ -196,8 +143,11 @@ void ASCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &ASCharacter::PrimaryInteract);
 
-	PlayerInputComponent->BindAction("PrimaryAbility", IE_Pressed, this, &ASCharacter::PrimaryAbility);
-	PlayerInputComponent->BindAction("SecondaryAbility", IE_Pressed, this, &ASCharacter::SecondaryAbility);
+	PlayerInputComponent->BindAction("PrimaryAbility", IE_Pressed, this, &ASCharacter::BlackHoleAbility);
+	PlayerInputComponent->BindAction("SecondaryAbility", IE_Pressed, this, &ASCharacter::DashAbility);
+
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ASCharacter::SprintStart);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ASCharacter::SprintStop);
 }
 
 void ASCharacter::HealSelf(float Amount)
