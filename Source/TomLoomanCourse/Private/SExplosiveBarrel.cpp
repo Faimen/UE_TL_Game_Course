@@ -23,8 +23,9 @@ ASExplosiveBarrel::ASExplosiveBarrel()
 	RadialForce->Radius = 750.0f;
 	RadialForce->ImpulseStrength = 1500.0f;
 	RadialForce->bImpulseVelChange = true;
-
 	RadialForce->AddCollisionChannelToAffect(ECC_WorldDynamic);
+	
+	bReplicates = true;
 }
 
 // Called when the game starts or when spawned

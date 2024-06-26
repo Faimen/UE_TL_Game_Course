@@ -8,10 +8,10 @@
 USActionComponent::USActionComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
+
+	SetIsReplicatedByDefault(true);
 }
 
-
-// Called when the game starts
 void USActionComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -60,6 +60,11 @@ bool USActionComponent::StartActionByName(AActor* Instigator, FName ActionName)
 				continue;
 			}
 
+			if(!GetOwner()->HasAuthority())
+			{				
+				ServerStartActionByName(Instigator, ActionName);
+			}
+			
 			Action->StartAction(Instigator);
 			return true;
 		}
@@ -87,4 +92,9 @@ void USActionComponent::RemoveAction(USAction* ActionToRemove)
 	if (!ensure(ActionToRemove && !ActionToRemove->IsRunning())) return;
 
 	Actions.Remove(ActionToRemove);
+}
+
+void USActionComponent::ServerStartActionByName_Implementation(AActor* Instigator, FName ActionName)
+{
+	StartActionByName(Instigator, ActionName);
 }

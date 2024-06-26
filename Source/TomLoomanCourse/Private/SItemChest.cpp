@@ -3,10 +3,10 @@
 
 #include "SItemChest.h"
 
-// Sets default values
+#include "Net/UnrealNetwork.h"
+
 ASItemChest::ASItemChest()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BaseMesh"));
@@ -16,11 +16,24 @@ ASItemChest::ASItemChest()
 	LidMesh->SetupAttachment(RootComponent);
 
 	TargetPitch = 110;
-	
+	bReplicates = true;
 }
 
 void ASItemChest::Interact_Implementation(APawn* InstigatorPawn)
 {
-	LidMesh->AddRelativeRotation(FRotator(TargetPitch, 0, 0));
+	bLidOpened = !bLidOpened;
+	OnRep_bLidOpened();
 }
 
+void ASItemChest::OnRep_bLidOpened()
+{
+	float CurrPitch = bLidOpened ? TargetPitch : 0;
+	LidMesh->SetRelativeRotation(FRotator(CurrPitch, 0, 0));
+}
+
+void ASItemChest::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ASItemChest, bLidOpened);
+}

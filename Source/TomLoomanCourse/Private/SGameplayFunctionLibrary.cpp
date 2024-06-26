@@ -8,7 +8,7 @@
 bool USGameplayFunctionLibrary::ApplyDamage(AActor* DamageCauser, AActor* TargetActor, float DamageAmount)
 {
 	USAttributeComponent* AttributeComponent = USAttributeComponent::GetAttributeComponentFromActor(TargetActor);
-	if (ensure(AttributeComponent))
+	if (AttributeComponent)
 	{
 		return AttributeComponent->ApplyHealthChange(DamageCauser, -DamageAmount);
 	}

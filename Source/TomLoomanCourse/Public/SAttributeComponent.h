@@ -24,11 +24,14 @@ public:
 	USAttributeComponent();
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attributes")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Replicated, Category="Attributes")
 	float Health;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Attributes")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Replicated, Category="Attributes")
 	float HealthMax;
+
+	UFUNCTION(NetMulticast, Reliable) // @FIXME: Unreliable
+	void MulticastHealthChanged(AActor* InstigatorActor, float NewHealth, float Delta);
 
 public:
 	UPROPERTY(BlueprintAssignable)
@@ -48,7 +51,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Attributes")
 	float GetHealth() const;
-	
+
 	UFUNCTION(BlueprintCallable, Category="Attributes")
 	bool Kill(AActor* InstigatorActor);
 };

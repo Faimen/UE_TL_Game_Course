@@ -14,7 +14,8 @@ ASPowerupActor::ASPowerupActor()
 	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	MeshComponent->SetupAttachment(RootComponent);
 
-	RespawnTime = 10.0f;	
+	RespawnTime = 10.0f;
+	bReplicates = true;
 }
 
 void ASPowerupActor::ShowPowerup()

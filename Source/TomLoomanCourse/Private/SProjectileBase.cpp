@@ -11,10 +11,8 @@
 #include "Sound/SoundCue.h"
 #include "Camera/CameraShakeBase.h"
 
-// Sets default values
 ASProjectileBase::ASProjectileBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
@@ -36,6 +34,8 @@ ASProjectileBase::ASProjectileBase()
 
 	ImpactShakeInnerRadius = 250.0f;
 	ImpactShakeOuterRadius = 2500.0f;
+
+	bReplicates = true;
 }
 
 void ASProjectileBase::PostInitializeComponents()

@@ -20,20 +20,23 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="Trace")
 	float TraceDistance;
-	
+
 	UPROPERTY(EditDefaultsOnly, Category="Trace")
 	float TraceRadius;
 
 	UPROPERTY(EditDefaultsOnly, Category="Trace")
 	TEnumAsByte<ECollisionChannel> TraceChannel;
-	
+
 	UPROPERTY(EditDefaultsOnly, Category="UI")
 	TSubclassOf<USWorldUserWidget> DefaultWidgetClass;
 
 	UPROPERTY()
 	USWorldUserWidget* DefaultWidgetInstance;
-	
+
 	void FindBestInteractable();
+
+	UFUNCTION(Server, Reliable)
+	void ServerInteract(AActor* InFocus);
 
 public:
 	USInteractionComponent();
