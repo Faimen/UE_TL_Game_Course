@@ -26,8 +26,11 @@ protected:
 	USActionComponent* GetOwningComponent() const;
 
 	bool bIsRunning;
-	
+
 public:
+	UPROPERTY(EditDefaultsOnly, Category="Action")
+	bool bAutoStart;
+
 	UPROPERTY(EditDefaultsOnly, Category="Action")
 	FName ActionName;
 
@@ -42,6 +45,6 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, Category="Action")
 	bool IsRunning() const;
-	
+
 	UWorld* GetWorld() const override;
 };
