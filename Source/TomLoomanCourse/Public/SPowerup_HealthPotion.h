@@ -18,9 +18,9 @@ class TOMLOOMANCOURSE_API ASPowerup_HealthPotion : public ASPowerupActor
 	
 protected:
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
-	UStaticMeshComponent* MeshComponent;
-
+	UPROPERTY(EditAnywhere, Category = "HealthPotion")
+	int32 CreditsCost;
+	
 public:
 
 	ASPowerup_HealthPotion();

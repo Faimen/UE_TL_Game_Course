@@ -9,7 +9,7 @@
 
 class USphereComponent;
 
-UCLASS()
+UCLASS(Abstract)
 class TOMLOOMANCOURSE_API ASPowerupActor : public AActor, public ISGameplayInterface
 {
 	GENERATED_BODY()
@@ -27,6 +27,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	USphereComponent* SphereComponent;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UStaticMeshComponent* MeshComponent;
+	
 
 public:
 
