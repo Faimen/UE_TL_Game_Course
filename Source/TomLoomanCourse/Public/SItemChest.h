@@ -21,8 +21,10 @@ public:
 
 	void Interact_Implementation(APawn* InstigatorPawn) override;
 
+	void OnActorLoaded_Implementation() override;
+
 protected:
-	UPROPERTY(Replicated, ReplicatedUsing="OnRep_bLidOpened", BlueprintReadOnly)
+	UPROPERTY(Replicated, ReplicatedUsing="OnRep_bLidOpened", BlueprintReadOnly, SaveGame)
 	bool bLidOpened;
 
 	UPROPERTY(VisibleAnywhere)

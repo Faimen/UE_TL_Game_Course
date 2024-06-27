@@ -25,6 +25,11 @@ void ASItemChest::Interact_Implementation(APawn* InstigatorPawn)
 	OnRep_bLidOpened();
 }
 
+void ASItemChest::OnActorLoaded_Implementation()
+{
+	OnRep_bLidOpened();
+}
+
 void ASItemChest::OnRep_bLidOpened()
 {
 	float CurrPitch = bLidOpened ? TargetPitch : 0;
