@@ -48,4 +48,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Actions")
 	void RemoveAction(USAction* ActionToRemove);
+
+	UFUNCTION(BlueprintCallable, Category="Actions")
+	USAction* GetAction(TSubclassOf<USAction> ActionClass) const;
 };

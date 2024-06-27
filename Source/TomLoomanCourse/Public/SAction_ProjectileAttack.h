@@ -30,9 +30,13 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Attack")
 	float AttackAnimDelay;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Attack")
+	float RageCost;
+	
 	UFUNCTION()
 	void AttackDelay_Elapsed(ACharacter* InstigatorCharacter);
 
+	bool CanStart_Implementation(AActor* Instigator) const override;
 public:
 	USAction_ProjectileAttack();
 

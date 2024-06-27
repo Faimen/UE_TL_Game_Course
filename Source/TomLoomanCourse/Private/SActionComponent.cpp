@@ -60,11 +60,11 @@ bool USActionComponent::StartActionByName(AActor* Instigator, FName ActionName)
 				continue;
 			}
 
-			if(!GetOwner()->HasAuthority())
-			{				
+			if (!GetOwner()->HasAuthority())
+			{
 				ServerStartActionByName(Instigator, ActionName);
 			}
-			
+
 			Action->StartAction(Instigator);
 			return true;
 		}
@@ -92,6 +92,19 @@ void USActionComponent::RemoveAction(USAction* ActionToRemove)
 	if (!ensure(ActionToRemove && !ActionToRemove->IsRunning())) return;
 
 	Actions.Remove(ActionToRemove);
+}
+
+USAction* USActionComponent::GetAction(TSubclassOf<USAction> ActionClass) const
+{
+	for (USAction* Action : Actions)
+	{
+		if (Action && Action->IsA(ActionClass))
+		{
+			return Action;
+		}
+	}
+
+	return nullptr;
 }
 
 void USActionComponent::ServerStartActionByName_Implementation(AActor* Instigator, FName ActionName)

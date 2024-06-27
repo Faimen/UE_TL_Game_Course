@@ -14,6 +14,9 @@ USAttributeComponent::USAttributeComponent()
 	HealthMax = 100;
 	Health = HealthMax;
 
+	Rage = 0;
+	RageMax = 100;
+
 	SetIsReplicatedByDefault(true);
 }
 
@@ -32,11 +35,11 @@ bool USAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 
 	float ActualDelta = Health - OldHealth;
 	//OnHealthChanged.Broadcast(InstigatorActor, this, Health, ActualDelta);
-	if(ActualDelta != 0.0f)
-	{		
+	if (ActualDelta != 0.0f)
+	{
 		MulticastHealthChanged(InstigatorActor, Health, ActualDelta);
 	}
-	
+
 	if (ActualDelta < 0.0f && Health == 0.0f)
 	{
 		ASGameModeBase* GM = GetWorld()->GetAuthGameMode<ASGameModeBase>();
@@ -74,6 +77,30 @@ bool USAttributeComponent::Kill(AActor* InstigatorActor)
 	return ApplyHealthChange(InstigatorActor, -HealthMax);
 }
 
+float USAttributeComponent::GetRage() const
+{
+	return Rage;
+}
+
+bool USAttributeComponent::ApplyRageChange(AActor* InstigatorActor, float Delta)
+{
+	float OldRage = Rage;
+	Rage = FMath::Clamp(Rage + Delta, 0.0f, RageMax);
+
+	float ActualDelta = Rage - OldRage;
+
+	//If we Add Rage we need to multicast it if it's not 0
+	//If we Remove Rage we need to multicast it only if we have something to remove
+	if ((Delta > 0.0f && ActualDelta != 0.0f) || (Delta < 0.0f && ActualDelta == Delta))
+	{
+		MulticastRageChanged(InstigatorActor, Rage, ActualDelta);
+		return true;
+	}
+
+	Rage = OldRage;
+	return false;
+}
+
 USAttributeComponent* USAttributeComponent::GetAttributeComponentFromActor(AActor* Actor)
 {
 	if (Actor)
@@ -101,9 +128,17 @@ void USAttributeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
 
 	DOREPLIFETIME(USAttributeComponent, Health);
 	DOREPLIFETIME(USAttributeComponent, HealthMax);
+
+	DOREPLIFETIME(USAttributeComponent, Rage);
+	DOREPLIFETIME(USAttributeComponent, RageMax);
 }
 
 void USAttributeComponent::MulticastHealthChanged_Implementation(AActor* InstigatorActor, float NewHealth, float Delta)
 {
 	OnHealthChanged.Broadcast(InstigatorActor, this, NewHealth, Delta);
+}
+
+void USAttributeComponent::MulticastRageChanged_Implementation(AActor* InstigatorActor, float NewRage, float Delta)
+{
+	OnRageChanged.Broadcast(InstigatorActor, this, NewRage, Delta);
 }

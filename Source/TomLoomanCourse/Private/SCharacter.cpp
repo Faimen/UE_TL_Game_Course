@@ -107,9 +107,14 @@ FVector ASCharacter::GetPawnViewLocation() const
 void ASCharacter::OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth,
                                   float Delta)
 {
+	//Damaged
 	if (Delta < 0.0f)
 	{
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeToHitParamName, GetWorld()->TimeSeconds);
+
+		//Add Rage based on Damage amount
+		float RageDelta = FMath::Abs(Delta);
+		AttributeComponent->ApplyRageChange(this, RageDelta);
 	}
 
 	if (NewHealth <= 0.0f && Delta < 0.0f)

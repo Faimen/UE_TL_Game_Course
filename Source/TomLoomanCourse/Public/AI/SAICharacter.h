@@ -38,9 +38,18 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category="UI")
 	TSubclassOf<UUserWidget> HealthBarWidgetClass;
-
+	
 	USWorldUserWidget* HealthBarWidget;
 
+	UPROPERTY(VisibleAnywhere, Category = "AI")
+	FName TargetActorKey;
+
+	UPROPERTY(EditDefaultsOnly, Category="UI")
+	TSubclassOf<UUserWidget> SpottedWidgetClass;
+	
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	AActor* GetTargetActor() const;	
+	
 	UFUNCTION()
 	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
 
