@@ -20,14 +20,16 @@ class TOMLOOMANCOURSE_API ASPlayerState : public APlayerState
 	GENERATED_BODY()
 
 protected:
-
-	UPROPERTY(EditDefaultsOnly, Category="Credits")
+	UPROPERTY(EditDefaultsOnly, ReplicatedUsing="OnRep_Credits", Category="Credits")
 	int32 Credits;
+
+	UFUNCTION()
+	void OnRep_Credits(int32 OldCredits);
 
 public:
 	UFUNCTION(BlueprintCallable, Category="Credits")
 	int32 GetCredits() const;
-	
+
 	UFUNCTION(BlueprintCallable, Category="Credits")
 	void AddCredits(int32 Delta);
 
@@ -39,7 +41,7 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, Category="SaveGame")
 	void SavePlayerState(USSaveGame* SaveObject);
-	
+
 	UFUNCTION(BlueprintNativeEvent, Category="SaveGame")
 	void LoadPlayerState(USSaveGame* SaveObject);
 };

@@ -41,7 +41,7 @@ bool USAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 		{
 			MulticastHealthChanged(InstigatorActor, NewHealth, ActualDelta);
 		}
-		
+
 		if (ActualDelta < 0.0f && NewHealth == 0.0f)
 		{
 			ASGameModeBase* GM = GetWorld()->GetAuthGameMode<ASGameModeBase>();
@@ -88,20 +88,27 @@ float USAttributeComponent::GetRage() const
 bool USAttributeComponent::ApplyRageChange(AActor* InstigatorActor, float Delta)
 {
 	float OldRage = Rage;
-	Rage = FMath::Clamp(Rage + Delta, 0.0f, RageMax);
-
-	float ActualDelta = Rage - OldRage;
+	float NewRage = FMath::Clamp(Rage + Delta, 0.0f, RageMax);
+	float ActualDelta = NewRage - OldRage;
 
 	//If we Add Rage we need to multicast it if it's not 0
 	//If we Remove Rage we need to multicast it only if we have something to remove
-	if ((Delta > 0.0f && ActualDelta != 0.0f) || (Delta < 0.0f && ActualDelta == Delta))
+	bool bCanBeChanged = (Delta > 0.0f && ActualDelta != 0.0f) || (Delta < 0.0f && ActualDelta == Delta);
+	
+	if (GetOwner()->HasAuthority())
 	{
-		MulticastRageChanged(InstigatorActor, Rage, ActualDelta);
-		return true;
-	}
+		Rage = NewRage;
 
-	Rage = OldRage;
-	return false;
+		if (bCanBeChanged)
+		{
+			MulticastRageChanged(InstigatorActor, Rage, ActualDelta);
+			return true;
+		}		
+
+		Rage = OldRage;
+	}
+	
+	return bCanBeChanged;
 }
 
 USAttributeComponent* USAttributeComponent::GetAttributeComponentFromActor(AActor* Actor)

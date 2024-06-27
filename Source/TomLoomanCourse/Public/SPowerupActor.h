@@ -15,6 +15,13 @@ class TOMLOOMANCOURSE_API ASPowerupActor : public AActor, public ISGameplayInter
 	GENERATED_BODY()
 	
 protected:
+
+	UPROPERTY(ReplicatedUsing="OnRep_IsActive")
+	bool bIsActive;
+
+	UFUNCTION()
+	void OnRep_IsActive();
+	
 	UPROPERTY(EditAnywhere, Category = "Powerup")
 	float RespawnTime;
 
