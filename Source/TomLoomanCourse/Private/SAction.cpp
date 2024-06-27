@@ -4,30 +4,36 @@
 #include "SAction.h"
 
 #include "SActionComponent.h"
+#include "Net/UnrealNetwork.h"
+#include "TomLoomanCourse/TomLoomanCourse.h"
 
 void USAction::StartAction_Implementation(AActor* Instigator)
 {
 	UE_LOG(LogTemp, Log, TEXT("Starting Action: %s"), *GetNameSafe(this));
+	//LogOnScreen(this, FString::Printf(TEXT("Starting Action: %s"), *ActionName.ToString()), FColor::Green);
 
 	USActionComponent* ActionComp = GetOwningComponent();
 	ActionComp->ActiveGameplayTags.AppendTags(GrantsTags);
-	bIsRunning = true;
+	RepData.bIsRunning = true;
+	RepData.Instigator = Instigator;
 }
 
 void USAction::StopAction_Implementation(AActor* Instigator)
 {
 	UE_LOG(LogTemp, Log, TEXT("Stopping Action: %s"), *GetNameSafe(this));
+	//LogOnScreen(this, FString::Printf(TEXT("Stopping Action: %s"), *ActionName.ToString()), FColor::Orange);
 
-	ensureAlways(bIsRunning);
+	//ensureAlways(bIsRunning);
 
 	USActionComponent* ActionComp = GetOwningComponent();
 	ActionComp->ActiveGameplayTags.RemoveTags(GrantsTags);
-	bIsRunning = false;
+	RepData.bIsRunning = false;
+	RepData.Instigator = Instigator;
 }
 
 bool USAction::CanStart_Implementation(AActor* Instigator) const
 {
-	if (bIsRunning) return false;
+	if (RepData.bIsRunning) return false;
 
 	USActionComponent* ActionComp = GetOwningComponent();
 	if (ActionComp->ActiveGameplayTags.HasAny(BlockedTags))
@@ -45,7 +51,19 @@ USActionComponent* USAction::GetOwningComponent() const
 
 bool USAction::IsRunning_Implementation() const
 {
-	return bIsRunning;
+	return RepData.bIsRunning;
+}
+
+void USAction::OnRep_RepData()
+{
+	if (RepData.bIsRunning)
+	{
+		StartAction(RepData.Instigator);
+	}
+	else
+	{
+		StopAction(RepData.Instigator);
+	}
 }
 
 UWorld* USAction::GetWorld() const
@@ -58,4 +76,11 @@ UWorld* USAction::GetWorld() const
 	}
 
 	return nullptr;
+}
+
+void USAction::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(USAction, RepData);
 }

@@ -4,10 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
-#include "UObject/NoExportTypes.h"
 #include "SAction.generated.h"
 
 class USActionComponent;
+
+USTRUCT()
+struct FActionRepData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY()
+	bool bIsRunning;
+	UPROPERTY()
+	AActor* Instigator;
+};
+
 /**
  * 
  */
@@ -25,7 +37,10 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Action")
 	USActionComponent* GetOwningComponent() const;
 
-	bool bIsRunning;
+	UPROPERTY(ReplicatedUsing="OnRep_RepData")
+	FActionRepData RepData;
+	UFUNCTION()
+	void OnRep_RepData();
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category="Action")
@@ -47,4 +62,6 @@ public:
 	bool IsRunning() const;
 
 	UWorld* GetWorld() const override;
+
+	bool IsSupportedForNetworking() const override { return true; }
 };

@@ -27,10 +27,13 @@ void USAction_ProjectileAttack::StartAction_Implementation(AActor* Instigator)
 		UGameplayStatics::SpawnEmitterAttached(CastingEffect, Character->GetMesh(), HandSocketName, FVector::ZeroVector,
 		                                       FRotator::ZeroRotator, EAttachLocation::SnapToTarget);
 
-		FTimerHandle TimerHandle;
-		FTimerDelegate Delegate;
-		Delegate.BindUFunction(this, "AttackDelay_Elapsed", Character);
-		GetWorld()->GetTimerManager().SetTimer(TimerHandle, Delegate, AttackAnimDelay, false);
+		if (Character->HasAuthority())
+		{
+			FTimerHandle TimerHandle;
+			FTimerDelegate Delegate;
+			Delegate.BindUFunction(this, "AttackDelay_Elapsed", Character);
+			GetWorld()->GetTimerManager().SetTimer(TimerHandle, Delegate, AttackAnimDelay, false);
+		}
 	}
 }
 
@@ -78,7 +81,7 @@ bool USAction_ProjectileAttack::CanStart_Implementation(AActor* Instigator) cons
 {
 	bool bCanStart = Super::CanStart_Implementation(Instigator);
 	//Skip logic if we can't start
-	if(!bCanStart) return bCanStart;
+	if (!bCanStart) return bCanStart;
 
 	//If we have rage cost, we need to make sure we have enough
 	ACharacter* Character = Cast<ACharacter>(Instigator);
@@ -88,6 +91,6 @@ bool USAction_ProjectileAttack::CanStart_Implementation(AActor* Instigator) cons
 		UE_LOG(LogTemp, Warning, TEXT("Not enough rage to attack"));
 		bCanStart = false;
 	}
-	
+
 	return bCanStart;
 }
