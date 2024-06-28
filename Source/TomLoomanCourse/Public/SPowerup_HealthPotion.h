@@ -15,15 +15,15 @@ UCLASS()
 class TOMLOOMANCOURSE_API ASPowerup_HealthPotion : public ASPowerupActor
 {
 	GENERATED_BODY()
-	
-protected:
 
+protected:
 	UPROPERTY(EditAnywhere, Category = "HealthPotion")
 	int32 CreditsCost;
-	
-public:
 
+public:
 	ASPowerup_HealthPotion();
 
-	virtual void Interact_Implementation(APawn *InstigatorPawn) override;
+	virtual void Interact_Implementation(APawn* InstigatorPawn) override;
+
+	virtual FText GetInteractMessage_Implementation(APawn* InstigatorPawn) override;
 };
