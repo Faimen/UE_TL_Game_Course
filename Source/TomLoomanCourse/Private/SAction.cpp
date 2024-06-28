@@ -4,6 +4,8 @@
 #include "SAction.h"
 
 #include "SActionComponent.h"
+#include "GameFramework/GameStateBase.h"
+#include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "TomLoomanCourse/TomLoomanCourse.h"
 
@@ -16,6 +18,13 @@ void USAction::StartAction_Implementation(AActor* Instigator)
 	ActionComp->ActiveGameplayTags.AppendTags(GrantsTags);
 	RepData.bIsRunning = true;
 	RepData.Instigator = Instigator;
+
+	if (GetOwningComponent()->GetOwnerRole() == ENetRole::ROLE_Authority)
+	{
+		TimeStarted = GetWorld()->GetTimeSeconds();
+	}
+
+	GetOwningComponent()->OnActionStarted.Broadcast(GetOwningComponent(), this);
 }
 
 void USAction::StopAction_Implementation(AActor* Instigator)
@@ -29,6 +38,8 @@ void USAction::StopAction_Implementation(AActor* Instigator)
 	ActionComp->ActiveGameplayTags.RemoveTags(GrantsTags);
 	RepData.bIsRunning = false;
 	RepData.Instigator = Instigator;
+
+	GetOwningComponent()->OnActionStopped.Broadcast(GetOwningComponent(), this);
 }
 
 bool USAction::CanStart_Implementation(AActor* Instigator) const
@@ -83,4 +94,5 @@ void USAction::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetime
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(USAction, RepData);
+	DOREPLIFETIME(USAction, TimeStarted);
 }
