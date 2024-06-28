@@ -6,10 +6,13 @@
 #include "AI/SAICharacter.h"
 #include "SAttributeComponent.h"
 #include "EngineUtils.h"
+#include "SActionComponent.h"
 #include "SCharacter.h"
 #include "SGameplayInterface.h"
+#include "SMonsterData.h"
 #include "SPlayerState.h"
 #include "SSaveGame.h"
+#include "Engine/AssetManager.h"
 #include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Serialization/ObjectAndNameAsStringProxyArchive.h"
@@ -33,8 +36,6 @@ void ASGameModeBase::StartPlay()
 {
 	Super::StartPlay();
 
-	LoadSaveGame();
-
 	GetWorldTimerManager().SetTimer(TimerHandle_SpawnBots, this, &ASGameModeBase::SpawnBotTimerElapsed,
 	                                SpawnTimerInterval, true);
 
@@ -51,12 +52,14 @@ void ASGameModeBase::StartPlay()
 
 void ASGameModeBase::HandleStartingNewPlayer_Implementation(APlayerController* NewPlayer)
 {
+	LoadSaveGame();
+
 	ASPlayerState* PS = NewPlayer->GetPlayerState<ASPlayerState>();
 	if (ensure(PS))
 	{
 		PS->LoadPlayerState(CurrentSaveGame);
 	}
-	
+
 	Super::HandleStartingNewPlayer_Implementation(NewPlayer);
 }
 
@@ -131,9 +134,50 @@ void ASGameModeBase::OnBotSpawnQueryCompleted(UEnvQueryInstanceBlueprintWrapper*
 
 	if (Locations.IsValidIndex(0))
 	{
-		GetWorld()->SpawnActor<AActor>(MinionClass, Locations[0], FRotator::ZeroRotator);
+		if (MonsterTable)
+		{
+			TArray<FMonsterInfoRow*> Rows;
+			MonsterTable->GetAllRows("", Rows);
 
-		DrawDebugSphere(GetWorld(), Locations[0], 50.0f, 20, FColor::Blue, false, 60.0f);
+			int32 RandomIndex = FMath::RandRange(0, Rows.Num() - 1);
+			FMonsterInfoRow* SelectedRow = Rows[RandomIndex];
+
+			UAssetManager* AssetManager = UAssetManager::GetIfValid();
+			if (AssetManager)
+			{
+				TArray<FName> Bundle;
+				FStreamableDelegate Delegate = FStreamableDelegate::CreateUObject(
+					this, &ASGameModeBase::OnMonsterLoaded, SelectedRow->MonsterId, Locations[0]);
+				AssetManager->LoadPrimaryAsset(SelectedRow->MonsterId, Bundle, Delegate);
+			}
+		}
+	}
+}
+
+void ASGameModeBase::OnMonsterLoaded(FPrimaryAssetId LoadedId, FVector SpawnLocation)
+{
+	UAssetManager* AssetManager = UAssetManager::GetIfValid();
+	if (AssetManager)
+	{
+		USMonsterData* MonsterData = AssetManager->GetPrimaryAssetObject<USMonsterData>(LoadedId);
+		if (ensure(MonsterData))
+		{
+			AActor* NewBot = GetWorld()->SpawnActor<AActor>(MonsterData->MonsterClass, SpawnLocation,
+			                                                FRotator::ZeroRotator);
+			if (NewBot)
+			{
+				DrawDebugSphere(GetWorld(), SpawnLocation, 50.0f, 20, FColor::Blue, false, 60.0f);
+
+				USActionComponent* ActionComponent = NewBot->FindComponentByClass<USActionComponent>();
+				if (ActionComponent)
+				{
+					for (TSubclassOf<USAction> ActionClass : MonsterData->Actions)
+					{
+						ActionComponent->AddAction(NewBot, ActionClass);
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -244,7 +288,7 @@ void ASGameModeBase::WriteSaveGame()
 		FObjectAndNameAsStringProxyArchive Ar(MemoryWriter, true);
 		Ar.ArIsSaveGame = true;
 		Actor->Serialize(Ar);
-		
+
 		CurrentSaveGame->SavedActors.Add(ActorSaveData);
 	}
 
@@ -277,14 +321,14 @@ void ASGameModeBase::LoadSaveGame()
 				if (SaveData.ActorName == Actor->GetName())
 				{
 					Actor->SetActorTransform(SaveData.Transform);
-					
+
 					FMemoryReader MemoryReader(SaveData.ByteData);
 					FObjectAndNameAsStringProxyArchive Ar(MemoryReader, true);
 					Ar.ArIsSaveGame = true;
 					Actor->Serialize(Ar);
 
 					ISGameplayInterface::Execute_OnActorLoaded(Actor);
-					
+
 					break;
 				}
 			}
