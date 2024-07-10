@@ -6,20 +6,56 @@
 #include "GameFramework/Character.h"
 #include "SAICharacter.generated.h"
 
+class USActionComponent;
+class USWorldUserWidget;
+class USAttributeComponent;
+class UPawnSensingComponent;
+
 UCLASS()
 class TOMLOOMANCOURSE_API ASAICharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
 	ASAICharacter();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	void SetTargetActor(AActor* NewTarget);
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void PostInitializeComponents() override;
+
+	UPROPERTY(VisibleAnywhere, Category="Components")
+	UPawnSensingComponent* PawnSensingComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	USAttributeComponent* AttributeComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	USActionComponent* ActionComponent;
+
+	UPROPERTY(VisibleAnywhere, Category="Effects")
+	FName TimeToHitParamName;
+
+	UPROPERTY(EditDefaultsOnly, Category="UI")
+	TSubclassOf<UUserWidget> HealthBarWidgetClass;
+	
+	USWorldUserWidget* HealthBarWidget;
+
+	UPROPERTY(VisibleAnywhere, Category = "AI")
+	FName TargetActorKey;
+
+	UPROPERTY(EditDefaultsOnly, Category="UI")
+	TSubclassOf<UUserWidget> SpottedWidgetClass;
+	
+	UFUNCTION(BlueprintCallable, Category = "AI")
+	AActor* GetTargetActor() const;	
+	
+	UFUNCTION()
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
+
+	UFUNCTION()
+	void OnPawnSeen(APawn* Pawn);
+	
+	UFUNCTION(NetMulticast, Unreliable)
+	void MulticastPawnSeen();
 };

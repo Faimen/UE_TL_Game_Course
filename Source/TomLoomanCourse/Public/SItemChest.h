@@ -15,29 +15,24 @@ class TOMLOOMANCOURSE_API ASItemChest : public AActor, public ISGameplayInterfac
 	GENERATED_BODY()
 
 public:
-
+	ASItemChest();
 	UPROPERTY(EditAnywhere)
 	float TargetPitch;
 
-	void Interact_Implementation(APawn* InstigatorPawn) override; 
+	void Interact_Implementation(APawn* InstigatorPawn) override;
 
-public:	
-	// Sets default values for this actor's properties
-	ASItemChest();
+	void OnActorLoaded_Implementation() override;
 
 protected:
+	UPROPERTY(Replicated, ReplicatedUsing="OnRep_bLidOpened", BlueprintReadOnly, SaveGame)
+	bool bLidOpened;
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* BaseMesh;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* LidMesh;
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+	UFUNCTION()
+	void OnRep_bLidOpened();
 };

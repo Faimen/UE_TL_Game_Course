@@ -6,10 +6,12 @@
 #include "GameFramework/Character.h"
 #include "SCharacter.generated.h"
 
+class USActionComponent;
 class UCameraComponent;
 class USpringArmComponent;
 class USInteractionComponent;
 class USAttributeComponent;
+class UParticleSystem;
 
 UCLASS()
 class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
@@ -17,27 +19,13 @@ class TOMLOOMANCOURSE_API ASCharacter : public ACharacter
 	GENERATED_BODY()
 
 protected:
-
-	UPROPERTY(EditAnywhere, Category="Attack")
-	TSubclassOf<AActor> ProjectileClass;
-
-	UPROPERTY(EditAnywhere, Category="Attack")
-	UAnimMontage* AttackAnim;
-
-	UPROPERTY(EditAnywhere, Category="Abilities")
-	TSubclassOf<AActor> PrimaryAbilityClass;
-
-	UPROPERTY(EditAnywhere, Category="Abilities")
-	TSubclassOf<AActor> SecondaryAbilityClass;
+	UPROPERTY(VisibleAnywhere, Category = "Effects")
+	FName TimeToHitParamName;
 	
-	FTimerHandle TimerHandle_PrimaryAttack;
-
 public:
-	// Sets default values for this character's properties
 	ASCharacter();
 
 protected:
-
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComponent;
 
@@ -50,35 +38,35 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	USAttributeComponent* AttributeComponent;
 
-	// Called when the game starts or when spawned
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	USActionComponent* ActionComponent;
+
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
 
 	void MoveForward(float Value);
 	void MoveRight(float Value);
+
+	void SprintStart();
+	void SprintStop();
 	
 	void PrimaryInteract();
 
 	void PrimaryAttack();
-	void PrimaryAttack_Timelapsed();
-	
-	void PrimaryAbility();
-	void PrimaryAbility_Timelapsed();
 
-	void SecondaryAbility();
-	void SecondaryAbility_Timelapsed();
+	void BlackHoleAbility();
 
-	void SpawnProjectile(TSubclassOf<AActor> ClassToSpawn);
+	void DashAbility();
 
-	FVector GetViewPosition();
 	FVector GetPawnViewLocation() const override;
-	
-	UFUNCTION()
-	void OnHealthChanged( AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
-public:	
 
-	// Called to bind functionality to input
+	UFUNCTION()
+	void OnHealthChanged(AActor* InstigatorActor, USAttributeComponent* OwningComponent, float NewHealth, float Delta);
+
+public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(Exec)
+	void HealSelf(float Amount = 100.0f);
 };

@@ -7,11 +7,12 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundCue.h"
+#include "Camera/CameraShakeBase.h"
 
-// Sets default values
 ASProjectileBase::ASProjectileBase()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>("SphereComponent");
@@ -22,11 +23,19 @@ ASProjectileBase::ASProjectileBase()
 	EffectComponent = CreateDefaultSubobject<UParticleSystemComponent>("EffectComponent");
 	EffectComponent->SetupAttachment(RootComponent);
 
+	AudioComponent = CreateDefaultSubobject<UAudioComponent>("AudioComponent");
+	AudioComponent->SetupAttachment(RootComponent);
+
 	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComponent");
 	MovementComponent->InitialSpeed = 1000.0f;
 	MovementComponent->bRotationFollowsVelocity = true;
 	MovementComponent->bInitialVelocityInLocalSpace = true;
 	MovementComponent->ProjectileGravityScale = 0;
+
+	ImpactShakeInnerRadius = 250.0f;
+	ImpactShakeOuterRadius = 2500.0f;
+
+	bReplicates = true;
 }
 
 void ASProjectileBase::PostInitializeComponents()
@@ -51,6 +60,10 @@ void ASProjectileBase::Explode_Implementation()
 	if (ensure(IsValid(this)))
 	{
 		UGameplayStatics::SpawnEmitterAtLocation(this, HitVFX, GetActorLocation(), GetActorRotation());
+
+		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation());
+
+		UGameplayStatics::PlayWorldCameraShake(this, ImpactShake, GetActorLocation(), ImpactShakeInnerRadius, ImpactShakeOuterRadius);
 
 		EffectComponent->DeactivateSystem();
 

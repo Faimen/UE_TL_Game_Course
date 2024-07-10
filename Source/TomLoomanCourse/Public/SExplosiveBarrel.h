@@ -14,29 +14,25 @@ UCLASS()
 class TOMLOOMANCOURSE_API ASExplosiveBarrel : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
+
+public:
 	ASExplosiveBarrel();
 
 protected:
-		
 	UPROPERTY(VisibleAnywhere)
 	URadialForceComponent* RadialForce;
-	
+
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* MeshComponent;
-	
-	UFUNCTION()
-	void OnHitCallback(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	// Called when the game starts or when spawned
+	UFUNCTION()
+	void OnHitCallback(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	                   FVector NormalImpulse, const FHitResult& Hit);
+
 	virtual void BeginPlay() override;
 
 	virtual void PostInitializeComponents() override;
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
-
 };
